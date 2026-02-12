@@ -35,13 +35,13 @@ jobs:
           target: ${{ vars.REMOTE_PATH }}
 
       - name: Move files from dist to target
-          uses: appleboy/ssh-action@v0.1.7
-          with:
-            host: ${{ vars.SSH_HOST }}
-            username: ${{ secrets.SSH_USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: ${{ secrets.SSH_PORT }}
-            script: |
-              mv ${{ vars.REMOTE_PATH }}/dist/* ${{ vars.REMOTE_PATH }}/
-              mv ${{ vars.REMOTE_PATH }}/dist/.* ${{ vars.REMOTE_PATH }}/ || true
-              rm -rf ${{ vars.REMOTE_PATH }}/dist
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ vars.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            mv ${{ vars.REMOTE_PATH }}/dist/* ${{ vars.REMOTE_PATH }}/
+            mv ${{ vars.REMOTE_PATH }}/dist/.* ${{ vars.REMOTE_PATH }}/ || true
+            rm -rf ${{ vars.REMOTE_PATH }}/dist
