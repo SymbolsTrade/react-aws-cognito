@@ -11,8 +11,8 @@ class ApiService {
     const token = localStorage.getItem('auth_access_token');
     const config = {
       headers: {
-        //'Authorization': `Bearer ${token}`,
-        'X-Token': '03a2788b-ed5a-404d-9a48-78d8fe45598d',
+        'Authorization': `Bearer ${token}`,
+        //'X-Token': '03a2788b-ed5a-404d-9a48-78d8fe45598d',
         'Content-Type': 'application/json',
         'Cache-Control': 'no-store'
       },
