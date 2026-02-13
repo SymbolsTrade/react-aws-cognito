@@ -5,7 +5,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 export default function Account() {
   return (
-    <Authenticator>
+    <Authenticator signUpAttributes={['name', 'email']}>
       {({ user, signOut }) => (
           <main style={{ maxWidth: 720, margin: '2rem auto' }}>
             <h1 className="text-xl font-semibold mb-3">Account settings</h1>

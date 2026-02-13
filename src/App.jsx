@@ -39,7 +39,7 @@ export default function App() {
         const a = await fetchUserAttributes();
         const session = await fetchAuthSession();
         const accessToken = session.tokens?.accessToken?.toString();
-        localStorage.setItem('auth_access_token', JSON.stringify(accessToken));
+        localStorage.setItem('auth_access_token', accessToken);
         const checkInObject = { cognito_id: a?.sub || null,
                       cognito_token: accessToken || null,
                       email: a?.email || null,

@@ -54,7 +54,7 @@ class ApiService {
     //so this function is upsert database
     try {
       const dataToSend = { requestType: 'userCheckIn', data: userData };
-      const response = await this.request('db/note-user/from-aws', {
+      const response = await this.request('db/notes-user/from-aws', {
         method: 'POST',
         body: JSON.stringify(dataToSend)
       });
