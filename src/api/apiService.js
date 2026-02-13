@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://api.amis-center.com/api/v1/';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1/';
 
 class ApiService {
   constructor() {

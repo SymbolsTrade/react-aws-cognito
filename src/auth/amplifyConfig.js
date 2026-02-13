@@ -17,7 +17,7 @@ Amplify.configure({
       userPoolId: VITE_USER_POOL_ID,
       userPoolClientId: VITE_USER_POOL_CLIENT_ID,
       loginWith: { email: true, username: true },
-      oauth: VITE_COGNITO_DOMAIN ? {
+      oauth: (VITE_COGNITO_DOMAIN && VITE_COGNITO_DOMAIN.trim() !== '' && VITE_COGNITO_DOMAIN !== 'NONE') ? {
         domain: VITE_COGNITO_DOMAIN,
         scopes: (VITE_OAUTH_SCOPES || 'openid,email,profile')
           .split(',').map(s => s.trim()).filter(Boolean),
