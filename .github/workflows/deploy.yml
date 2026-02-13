@@ -51,6 +51,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            mv ${{ vars.REMOTE_PATH }}/dist/* ${{ vars.REMOTE_PATH }}/
-            mv ${{ vars.REMOTE_PATH }}/dist/.* ${{ vars.REMOTE_PATH }}/ || true
+            shopt -s dotglob
+            mv -f ${{ vars.REMOTE_PATH }}/dist/* ${{ vars.REMOTE_PATH }}/
             rm -rf ${{ vars.REMOTE_PATH }}/dist
