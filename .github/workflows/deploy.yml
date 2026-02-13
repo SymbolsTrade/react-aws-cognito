@@ -51,5 +51,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            rsync -a --delete ${{ vars.REMOTE_PATH }}/dist/ ${{ vars.REMOTE_PATH }}/
+            cp -rf ${{ vars.REMOTE_PATH }}/dist/* ${{ vars.REMOTE_PATH }}/
+            cp -rf ${{ vars.REMOTE_PATH }}/dist/.* ${{ vars.REMOTE_PATH }}/ || true
             rm -rf ${{ vars.REMOTE_PATH }}/dist
