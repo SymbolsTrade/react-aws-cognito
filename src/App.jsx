@@ -15,7 +15,7 @@ const router = createBrowserRouter(
     { path: '/dashboard', element: <Dashboard /> },
     { path: '/app', element: <NotesApp /> },
     { path: '/account', element: <Account /> },
-    { path: '/api', element: <DbApiManager /> },
+    { path: '/api_manage', element: <DbApiManager /> },
     { path: '*', element: <Landing /> }
   ],
   {
