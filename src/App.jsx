@@ -3,6 +3,7 @@ import Landing from './pages/Landing.jsx'
 import NotesApp from './pages/NotesApp.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Account from './pages/Account.jsx'
+import DbApiManager from './pages/DbApiManager.jsx'
 import { fetchUserAttributes, fetchAuthSession } from 'aws-amplify/auth';
 import { useEffect } from 'react';
 import apiService from './api/apiService.js';
@@ -14,6 +15,7 @@ const router = createBrowserRouter(
     { path: '/dashboard', element: <Dashboard /> },
     { path: '/app', element: <NotesApp /> },
     { path: '/account', element: <Account /> },
+    { path: '/api', element: <DbApiManager /> },
     { path: '*', element: <Landing /> }
   ],
   {
