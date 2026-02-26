@@ -1,19 +1,22 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useRef } from 'react'
+// Import html2pdf.js via CDN
+// You may need to add <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> to your index.html for this to work
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 export default function NoteForm({ note, folders, currentFolderId, onSave }) {
+  const previewRef = useRef(null)
   const [title, setTitle] = useState(note?.title || '')
   const [content, setContent] = useState(note?.content || '')
   const [folderId, setFolderId] = useState(note?.folderId || currentFolderId)
-  const [preview, setPreview] = useState(false)
+  const [preview, setPreview] = useState(true)
 
   useEffect(() => {
     setTitle(note?.title || '')
     setContent(note?.content || '')
     setFolderId(note?.folderId || currentFolderId)
     // when switching notes, go back to edit mode so you can type immediately
-    setPreview(false)
+    setPreview(true)
   }, [note?.id, currentFolderId])
 
   // Heuristic: does the text look like Markdown?
@@ -26,6 +29,20 @@ export default function NoteForm({ note, folders, currentFolderId, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     onSave({ ...note, title, content, folderId })
+    setPreview(true) // after saving, show preview so user can see rendered result immediately
+  }
+
+  // Export PDF handler
+  const handleExportPDF = () => {
+    if (previewRef.current) {
+      // html2pdf must be loaded globally
+      window.html2pdf().from(previewRef.current).set({
+        margin: 0.5,
+        filename: (title || 'note') + '.pdf',
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      }).save()
+    }
   }
 
   return (
@@ -74,12 +91,21 @@ export default function NoteForm({ note, folders, currentFolderId, onSave }) {
         <label className="block text-sm font-medium">Content</label>
 
         {preview ? (
-          <div className="mt-1 rounded-xl border p-4 bg-gray-50 overflow-auto">
-            <div className="prose max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {content || '_(empty note)_'}
-              </ReactMarkdown>
+          <div>
+            <div className="mt-1 rounded-xl border p-4 bg-gray-50 overflow-auto" ref={previewRef}>
+              <div className="prose max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {content || '_(empty note)_'}
+                </ReactMarkdown>
+              </div>
             </div>
+            <button
+              type="button"
+              onClick={handleExportPDF}
+              className="mt-2 px-3 py-1.5 rounded bg-green-600 text-white hover:bg-green-700"
+            >
+              Export to PDF
+            </button>
           </div>
         ) : (
           <textarea
