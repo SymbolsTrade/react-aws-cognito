@@ -3,6 +3,9 @@ import { useEffect, useMemo, useState, useRef } from 'react'
 // You may need to add <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> to your index.html for this to work
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
 
 export default function NoteForm({ note, folders, currentFolderId, onSave }) {
   const previewRef = useRef(null)
@@ -94,7 +97,10 @@ export default function NoteForm({ note, folders, currentFolderId, onSave }) {
           <div>
             <div className="mt-1 rounded-xl border p-4 bg-gray-50 overflow-auto" ref={previewRef}>
               <div className="prose max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown 
+                  remarkPlugins={[remarkGfm, remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
                   {content || '_(empty note)_'}
                 </ReactMarkdown>
               </div>
